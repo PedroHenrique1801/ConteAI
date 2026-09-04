@@ -4,6 +4,7 @@ import com.example.budgeting.application.GetFinancialSummaryUseCase;
 import com.example.budgeting.application.ListTransactionsByCategoryUseCase;
 import com.example.budgeting.application.PersistTransactionUseCase;
 import com.example.budgeting.application.SumTransactionsByCategoryUseCase;
+import com.example.budgeting.application.GetLatestTransactionUseCase;
 import com.example.budgeting.domain.Category;
 import com.example.budgeting.infrastructure.http.request.TransactionRequest;
 import com.example.budgeting.infrastructure.http.response.TransactionResponse;
@@ -30,6 +31,7 @@ public class TransactionController {
     private final ListTransactionsByCategoryUseCase listTransactionsByCategoryUseCase;
     private final SumTransactionsByCategoryUseCase sumTransactionsByCategoryUseCase;
     private final GetFinancialSummaryUseCase financialSummaryUseCase;
+    private final GetLatestTransactionUseCase getLatestTransactionUseCase;
     private final TranscriptionModel transcriptionModel;
     private final ChatClient chatClient;
     private final TextToSpeechModel textToSpeechModel;
@@ -38,6 +40,7 @@ public class TransactionController {
                                  ListTransactionsByCategoryUseCase listTransactionsByCategoryUseCase,
                                  SumTransactionsByCategoryUseCase sumTransactionsByCategoryUseCase,
                                  GetFinancialSummaryUseCase financialSummaryUseCase,
+                                 GetLatestTransactionUseCase getLatestTransactionUseCase,
                                  TranscriptionModel transcriptionModel,
                                  @Value("classpath:prompts/system-message.st") Resource systemPrompt,
                                  ChatClient.Builder chatClientBuilder,
@@ -48,6 +51,7 @@ public class TransactionController {
         this.sumTransactionsByCategoryUseCase = sumTransactionsByCategoryUseCase;
 
         this.financialSummaryUseCase = financialSummaryUseCase;
+        this.getLatestTransactionUseCase = getLatestTransactionUseCase;
 
         this.transcriptionModel = transcriptionModel;
         this.chatClient = chatClientBuilder
@@ -101,6 +105,14 @@ public class TransactionController {
                 .stream()
                 .map(TransactionResponse::from)
                 .toList();
+    }
+
+    @GetMapping("/latest")
+    public ResponseEntity<TransactionResponse> readLatestTransaction() {
+        return getLatestTransactionUseCase.execute()
+                .map(TransactionResponse::from)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/sum/{category}")

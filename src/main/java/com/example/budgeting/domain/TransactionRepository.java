@@ -1,6 +1,7 @@
 package com.example.budgeting.domain;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TransactionRepository {
 
@@ -9,4 +10,6 @@ public interface TransactionRepository {
     List<Transaction> findAllByCategory(Category category);
 
     Long sumAmountByCategory(Category category);
+
+    Optional<Transaction> findLatest();
 }

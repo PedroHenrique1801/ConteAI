@@ -7,12 +7,15 @@ import com.example.budgeting.infrastructure.persistence.entity.TransactionEntity
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JpaTransactionRepository implements TransactionRepository {
     private final TransactionEntityRepository transactionEntityRepository;
 
-    public JpaTransactionRepository(TransactionEntityRepository transactionEntityRepository) {
+    public JpaTransactionRepository(
+            TransactionEntityRepository transactionEntityRepository
+    ) {
         this.transactionEntityRepository = transactionEntityRepository;
     }
 
@@ -24,7 +27,8 @@ public class JpaTransactionRepository implements TransactionRepository {
 
     @Override
     public List<Transaction> findAllByCategory(Category category) {
-        return transactionEntityRepository.findAllByCategory(category)
+        return transactionEntityRepository
+                .findAllByCategory(category)
                 .stream()
                 .map(TransactionEntity::toDomain)
                 .toList();
@@ -32,8 +36,16 @@ public class JpaTransactionRepository implements TransactionRepository {
 
     @Override
     public Long sumAmountByCategory(Category category) {
-        Long sum = transactionEntityRepository.sumAmountByCategory(category);
+        Long sum = transactionEntityRepository
+                .sumAmountByCategory(category);
 
         return sum != null ? sum : 0L;
+    }
+
+    @Override
+    public Optional<Transaction> findLatest() {
+        return transactionEntityRepository
+                .findFirstByOrderByCreatedAtDesc()
+                .map(TransactionEntity::toDomain);
     }
 }
