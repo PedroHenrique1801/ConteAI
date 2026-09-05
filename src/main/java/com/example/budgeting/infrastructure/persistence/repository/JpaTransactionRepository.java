@@ -10,25 +10,43 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JpaTransactionRepository implements TransactionRepository {
-    private final TransactionEntityRepository transactionEntityRepository;
+public class JpaTransactionRepository
+        implements TransactionRepository {
+
+    private final TransactionEntityRepository
+            transactionEntityRepository;
 
     public JpaTransactionRepository(
             TransactionEntityRepository transactionEntityRepository
     ) {
-        this.transactionEntityRepository = transactionEntityRepository;
+        this.transactionEntityRepository =
+                transactionEntityRepository;
     }
 
     @Override
     public Transaction save(Transaction transaction) {
         var entity = TransactionEntity.from(transaction);
-        return transactionEntityRepository.save(entity).toDomain();
+
+        return transactionEntityRepository
+                .save(entity)
+                .toDomain();
     }
 
     @Override
-    public List<Transaction> findAllByCategory(Category category) {
+    public List<Transaction> findAllByCategory(
+            Category category
+    ) {
         return transactionEntityRepository
                 .findAllByCategory(category)
+                .stream()
+                .map(TransactionEntity::toDomain)
+                .toList();
+    }
+
+    @Override
+    public List<Transaction> findAllOrderByCreatedAtDesc() {
+        return transactionEntityRepository
+                .findAllByOrderByCreatedAtDesc()
                 .stream()
                 .map(TransactionEntity::toDomain)
                 .toList();

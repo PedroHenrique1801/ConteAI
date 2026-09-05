@@ -5,6 +5,7 @@ import com.example.budgeting.application.ListTransactionsByCategoryUseCase;
 import com.example.budgeting.application.PersistTransactionUseCase;
 import com.example.budgeting.application.SumTransactionsByCategoryUseCase;
 import com.example.budgeting.application.GetLatestTransactionUseCase;
+import com.example.budgeting.application.ListTransactionsUseCase;
 import com.example.budgeting.domain.Category;
 import com.example.budgeting.infrastructure.http.request.TransactionRequest;
 import com.example.budgeting.infrastructure.http.response.TransactionResponse;
@@ -29,6 +30,7 @@ public class TransactionController {
 
     private final PersistTransactionUseCase persistTransactionUseCase;
     private final ListTransactionsByCategoryUseCase listTransactionsByCategoryUseCase;
+    private final ListTransactionsUseCase listTransactionsUseCase;
     private final SumTransactionsByCategoryUseCase sumTransactionsByCategoryUseCase;
     private final GetFinancialSummaryUseCase financialSummaryUseCase;
     private final GetLatestTransactionUseCase getLatestTransactionUseCase;
@@ -38,6 +40,7 @@ public class TransactionController {
 
     public TransactionController(PersistTransactionUseCase persistTransactionUseCase,
                                  ListTransactionsByCategoryUseCase listTransactionsByCategoryUseCase,
+                                 ListTransactionsUseCase listTransactionsUseCase,
                                  SumTransactionsByCategoryUseCase sumTransactionsByCategoryUseCase,
                                  GetFinancialSummaryUseCase financialSummaryUseCase,
                                  GetLatestTransactionUseCase getLatestTransactionUseCase,
@@ -48,6 +51,7 @@ public class TransactionController {
 
         this.persistTransactionUseCase = persistTransactionUseCase;
         this.listTransactionsByCategoryUseCase = listTransactionsByCategoryUseCase;
+        this.listTransactionsUseCase = listTransactionsUseCase;
         this.sumTransactionsByCategoryUseCase = sumTransactionsByCategoryUseCase;
 
         this.financialSummaryUseCase = financialSummaryUseCase;
@@ -102,6 +106,15 @@ public class TransactionController {
     @GetMapping("/{category}")
     public List<TransactionResponse> readTransactions(@PathVariable Category category) {
         return listTransactionsByCategoryUseCase.execute(category)
+                .stream()
+                .map(TransactionResponse::from)
+                .toList();
+    }
+
+    @GetMapping
+    public List<TransactionResponse> readAllTransactions() {
+        return listTransactionsUseCase
+                .execute()
                 .stream()
                 .map(TransactionResponse::from)
                 .toList();

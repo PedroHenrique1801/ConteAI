@@ -22,7 +22,7 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class) // LIGA O VIGIA: Avisa o Spring para monitorar esta entidade
+@EntityListeners(AuditingEntityListener.class)
 public class TransactionEntity {
 
     @Id
@@ -39,13 +39,16 @@ public class TransactionEntity {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    public static TransactionEntity from (Transaction transaction) {
-
+    public static TransactionEntity from(
+            Transaction transaction
+    ) {
         TransactionEntity entity = new TransactionEntity();
+
         entity.setId(transaction.getId().uuid());
         entity.setDescription(transaction.getDescription());
         entity.setAmount(transaction.getAmount());
         entity.setCategory(transaction.getCategory());
+        entity.setCreatedAt(transaction.getCreatedAt());
 
         return entity;
     }
@@ -55,7 +58,8 @@ public class TransactionEntity {
                 new TransactionId(this.id),
                 this.description,
                 this.amount,
-                this.category
+                this.category,
+                this.createdAt
         );
     }
 }

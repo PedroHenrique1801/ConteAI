@@ -13,14 +13,21 @@ import java.util.UUID;
 public interface TransactionEntityRepository
         extends CrudRepository<TransactionEntity, UUID> {
 
-    List<TransactionEntity> findAllByCategory(Category category);
+    List<TransactionEntity> findAllByCategory(
+            Category category
+    );
+
+    List<TransactionEntity> findAllByOrderByCreatedAtDesc();
 
     @Query("""
         SELECT SUM(t.amount)
         FROM TransactionEntity t
         WHERE t.category = :category
         """)
-    Long sumAmountByCategory(@Param("category") Category category);
+    Long sumAmountByCategory(
+            @Param("category") Category category
+    );
 
-    Optional<TransactionEntity> findFirstByOrderByCreatedAtDesc();
+    Optional<TransactionEntity>
+    findFirstByOrderByCreatedAtDesc();
 }

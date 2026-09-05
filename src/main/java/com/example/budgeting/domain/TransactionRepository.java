@@ -9,6 +9,8 @@ public interface TransactionRepository {
 
     List<Transaction> findAllByCategory(Category category);
 
+    List<Transaction> findAllOrderByCreatedAtDesc();
+
     Long sumAmountByCategory(Category category);
 
     Optional<Transaction> findLatest();
