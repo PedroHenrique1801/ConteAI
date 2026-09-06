@@ -17,12 +17,12 @@ Cansado da digitação manual. Basta clicar no botão de gravar e relatar seus g
 ### Consultor Financeiro IA Integrado
 Um consultor contextualizado com os seus dados. Faça perguntas sobre o seu orçamento, peça análises de gastos do mês ou simule cenários. A IA entende o contexto das suas finanças e devolve conselhos práticos e personalizados diretamente na sua tela.
 
-![Demonstração do Consultor IA](./assets/chat.png)
+![Demonstração do Consultor IA](./assets/assistente.png)
 
 ### Dashboard de Performance Premium
 Acompanhe a saúde do seu negócio ou finanças pessoais através de uma interface minimalista estilo "Planner SaaS". Gráficos dinâmicos e tabelas atualizadas instantaneamente mostram a distribuição do seu capital e as últimas transações.
 
-![Print do Dashboard Completo](./assets/painel.png)
+![Print do Dashboard Completo](./assets/grafico.png)
 
 ---
 
