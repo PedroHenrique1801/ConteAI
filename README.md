@@ -10,8 +10,8 @@ Um painel financeiro inteligente e moderno que transforma a maneira como você r
 Cansado da digitação manual. Basta clicar no botão de gravar e relatar seus gastos naturalmente. A IA converte seu áudio em texto, extrai os valores, categoriza a despesa (Mercado, Automóvel, Farmácia, etc.) e atualiza seu painel em tempo real.
 
 <div align="center">
-  <img src="./assets/gravar.png" width="300" alt="Botão Gravar Áudio">
-  <img src="./assets/Gravando.jpeg" width="300" alt="Botão Gravando">
+  <img src="./assets/botao-gravar.png" width="300" alt="Botão Gravar Áudio">
+  <img src="./assets/status-gravando.png" width="300" alt="Botão Gravando">
 </div>
 
 ### Consultor Financeiro IA Integrado
