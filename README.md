@@ -1,6 +1,13 @@
-#  ConteAI - Consultor Financeiro Inteligente
+# ConteAI - Assistente Financeiro Inteligente
 
-Um painel financeiro inteligente e moderno que transforma a maneira como você registra e analisa suas despesas. Desenvolvido com **Inteligência Artificial (OpenAI)** e fundamentado em **Clean Architecture**, o sistema oferece processamento de linguagem natural e RAG para interações financeiras intuitivas.
+O **ConteAI** é uma aplicação financeira full-stack que simplifica o registro e a análise de despesas pessoais. Por meio de comandos de voz e linguagem natural, o usuário pode registrar seus gastos, acompanhar o histórico de transações, visualizar a distribuição das despesas por categoria e consultar um assistente financeiro com inteligência artificial.
+
+A aplicação possui um frontend mobile-first desenvolvido com **Angular, TypeScript e SCSS**, integrado a uma API construída com **Java e Spring Boot**. A integração com a **OpenAI** permite interpretar informações financeiras fornecidas pelo usuário e gerar análises com base nas transações cadastradas.
+
+O backend foi estruturado seguindo os princípios da **Clean Architecture** e do **SOLID**, mantendo as regras de negócio independentes das tecnologias externas e promovendo separação de responsabilidades, baixo acoplamento, testabilidade e facilidade de evolução.
+
+Mais do que um controle de despesas, o ConteAI explora a aplicação prática de inteligência artificial em uma experiência financeira simples, acessível e visualmente consistente.
+
 
 ---
 
