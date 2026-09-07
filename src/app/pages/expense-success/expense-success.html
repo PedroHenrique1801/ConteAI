@@ -1,0 +1,75 @@
+<main class="success-page">
+  <section class="app-shell">
+    <app-brand></app-brand>
+
+    <section class="success-content">
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <div class="success-divider" aria-hidden="true"></div>
+
+      <header class="success-message">
+        <h1>Despesa registrada!</h1>
+        <p>O registro foi salvo com sucesso.</p>
+      </header>
+
+      @if (loading()) {
+      <article class="expense-card">
+        <span class="expense-card__label">
+          Carregando despesa...
+        </span>
+      </article>
+      } @else if (transaction(); as expense) {
+      <article class="expense-card">
+        <span class="expense-card__label">
+          Despesa registrada
+        </span>
+
+        <strong class="expense-card__description">
+          {{ expense.description }}
+        </strong>
+
+        <span class="expense-card__metadata">
+          {{ categoryLabel(expense.category) }} • Hoje
+        </span>
+
+        <strong class="expense-card__value">
+          {{ formatCurrency(expense.amount) }}
+        </strong>
+
+        <div class="expense-card__divider"></div>
+
+        <div class="expense-card__total">
+          <span>Gasto no mês atualizado:</span>
+
+          <strong>
+            {{ formatCurrency(monthlyTotal()) }}
+          </strong>
+        </div>
+      </article>
+      } @else {
+      <article class="expense-card">
+        <strong class="expense-card__description">
+          {{ loadError() }}
+        </strong>
+      </article>
+      }
+
+      <div class="success-actions">
+        <a class="button button--primary" routerLink="/">
+          Voltar ao início
+        </a>
+
+        <a class="button button--secondary" routerLink="/registrar-despesa">
+          Registrar outra despesa
+        </a>
+      </div>
+
+      <p class="history-message">
+        Você poderá consultar esta despesa no histórico.
+      </p>
+    </section>
+
+    <footer class="success-footer" aria-hidden="true">
+      <img class="brand-symbol" src="/assets/conteai-symbol.svg" alt="" aria-hidden="true">
+    </footer>
+  </section>
+</main>

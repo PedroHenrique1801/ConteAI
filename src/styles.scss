@@ -1,0 +1,96 @@
+:root {
+  --color-primary: #741d2e;
+  --radius-button: 14px;
+  --color-primary-dark: #681426;
+  --color-text: #1c1b1b;
+  --color-muted: #6b7280;
+  --color-navigation: #4a1019;
+  --bottom-navigation-height: 84px;
+  --color-surface: #f3f4f6;
+  --radius-item: 12px;
+  --color-highlight: #f2ede5;
+  --color-border: #d6dae1;
+  --color-white: #ffffff;
+  --color-navigation-active: #4a1019;
+  --color-recorder-ready: #e8dfcf;
+  --radius-card: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #e8e9ec;
+  color: var(--color-text);
+  font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+app-root {
+  display: block;
+  min-height: 100vh;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+  animation-duration: 220ms;
+  animation-fill-mode: both;
+}
+
+::view-transition-old(root) {
+  animation-name: dissolve-out;
+  animation-timing-function: ease-in;
+}
+
+::view-transition-new(root) {
+  animation-name: dissolve-in;
+  animation-timing-function: ease-out;
+}
+
+@keyframes dissolve-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  to {
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+@keyframes dissolve-in {
+  from {
+    opacity: 0;
+    filter: blur(2px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}

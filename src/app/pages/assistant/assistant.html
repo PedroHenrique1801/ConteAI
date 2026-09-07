@@ -1,0 +1,90 @@
+<main class="assistant-page">
+  <section class="app-shell">
+    <div class="assistant-content">
+      <app-brand></app-brand>
+
+      <section class="assistant-introduction">
+        <h1>Assistente financeiro</h1>
+        <p>
+          Pergunte sobre seus gastos e receba análises da IA.
+        </p>
+      </section>
+
+      <section class="suggestions" aria-labelledby="suggestions-title">
+        <h2 id="suggestions-title">Sugestões de perguntas</h2>
+
+        @for (suggestion of suggestions; track suggestion) {
+          <button
+            type="button"
+            (click)="sendSuggestion(suggestion)"
+          >
+            {{ suggestion }}
+          </button>
+        }
+      </section>
+
+      <section
+        class="conversation"
+        aria-label="Conversa com o assistente"
+        aria-live="polite"
+      >
+        @for (message of messages(); track $index) {
+          <article
+            class="message"
+            [class.message--user]="message.role === 'user'"
+            [class.message--assistant]="message.role === 'assistant'"
+          >
+            <strong>
+              {{ message.role === 'assistant' ? 'Assistente' : 'Você' }}
+            </strong>
+
+            <p>{{ message.text }}</p>
+          </article>
+        }
+      </section>
+    </div>
+
+    <form class="question-form" (ngSubmit)="sendQuestion()">
+      <input
+        type="text"
+        name="question"
+        [(ngModel)]="question"
+        placeholder="Pergunte sobre seus gastos..."
+        aria-label="Pergunta para o assistente"
+        autocomplete="off"
+      />
+
+      <button
+        type="submit"
+        [disabled]="!question.trim() || isSending()"
+      >
+        Enviar
+      </button>
+    </form>
+
+    <nav class="bottom-navigation" aria-label="Navegação principal">
+      <button
+        class="bottom-navigation__item"
+        type="button"
+        routerLink="/"
+      >
+        Início
+      </button>
+
+      <button
+        class="bottom-navigation__item bottom-navigation__item--active"
+        type="button"
+      >
+        Assistente
+      </button>
+
+      <button
+        class="bottom-navigation__item"
+        type="button"
+        routerLink="/analises"
+      >
+        Análises
+      </button>
+    </nav>
+  </section>
+</main>

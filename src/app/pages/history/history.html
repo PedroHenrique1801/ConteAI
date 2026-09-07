@@ -1,0 +1,84 @@
+<main class="history-page">
+  <section class="app-shell">
+    <div class="history-content">
+      <app-brand></app-brand>
+
+      <header class="page-heading">
+        <h1>Histórico de gastos</h1>
+        <p>Do registro mais recente ao mais antigo.</p>
+      </header>
+
+      <section
+        class="history-list"
+        aria-label="Histórico de despesas"
+      >
+        @if (loading()) {
+          <article class="history-state">
+            <strong>Carregando histórico...</strong>
+          </article>
+        } @else if (loadError()) {
+          <article class="history-state history-state--error">
+            <strong>{{ loadError() }}</strong>
+          </article>
+        } @else {
+          @for (expense of transactions(); track expense.id) {
+            <article class="history-item">
+              <div class="history-item__content">
+                <strong>
+                  {{ expense.description }}
+                </strong>
+
+                <span>
+                  {{ categoryLabel(expense.category) }}
+                  •
+                  {{ formatDate(expense.createdAt) }}
+                </span>
+              </div>
+
+              <strong class="history-item__value">
+                {{ formatCurrency(expense.amount) }}
+              </strong>
+            </article>
+          } @empty {
+            <article class="history-state">
+              <strong>Nenhuma despesa registrada.</strong>
+
+              <a routerLink="/registrar-despesa">
+                Registrar primeira despesa
+              </a>
+            </article>
+          }
+        }
+      </section>
+    </div>
+
+    <nav
+      class="bottom-navigation"
+      aria-label="Navegação principal"
+    >
+      <button
+        class="bottom-navigation__item bottom-navigation__item--active"
+        type="button"
+        routerLink="/"
+      >
+        Início
+      </button>
+
+      <button
+        class="bottom-navigation__item"
+        type="button"
+        routerLink="/assistente"
+      >
+        Assistente
+      </button>
+
+      <button
+        class="bottom-navigation__item"
+        type="button"
+        routerLink="/analises"
+      >
+        Análises
+      </button>
+    </nav>
+  </section>
+</main>
