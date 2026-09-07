@@ -34,39 +34,74 @@ Acompanhe a saúde do seu negócio ou finanças pessoais através de uma interfa
 
 ---
 
-##  Stack Tecnológico
+## Stack Tecnológico
 
-A aplicação isola as regras de negócio de frameworks web e bancos de dados, garantindo máxima escalabilidade:
+O ConteAI utiliza Clean Architecture e princípios SOLID para separar as regras de negócio das camadas de interface, persistência e infraestrutura, facilitando a manutenção e a evolução do sistema.
 
-- **Interface (Client):** HTML5, CSS3 (Custom Properties & Flexbox), Vanilla JS, Chart.js.
-- **Core & API:** Java 25, Spring Boot 3+.
-- **Inteligência Artificial:** Spring AI (Integração com Whisper para transcrição, GPT para o consultor e TTS).
-- **Persistência:** MySQL 9.6, Spring Data JPA, Hibernate.
-- **Infraestrutura:** Docker (Spring Boot Docker Compose).
+* **Interface Web:** Angular, TypeScript, HTML5, SCSS, Angular Router, Signals e RxJS.
+* **Core e API:** Java 25, Spring Boot 4.1.0 e API REST.
+* **Inteligência Artificial:** Spring AI e OpenAI, com Whisper para transcrição de áudio, GPT para análise financeira e TTS para síntese de voz.
+* **Persistência:** MySQL 9.6, Spring Data JPA e Hibernate.
+* **Infraestrutura:** Docker, Docker Compose, Gradle e npm.
 
 ---
 
-### Quick Start
+## Quick Start
 
-O ambiente de banco de dados é orquestrado de forma transparente via Docker Compose, integrado nativamente ao Spring Boot.
+### Pré-requisitos
 
-**1. Configure a sua Chave da OpenAI**
-No arquivo `src/main/resources/application.properties`, insira sua chave (ou configure via variável de ambiente na sua IDE):
+Antes de iniciar, tenha instalado:
 
-```properties
-spring.ai.openai.api-key=SUA_CHAVE_AQUI
+* Java 25;
+* Node.js e npm;
+* Docker Desktop;
+* Git.
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/PedroHenrique1801/ConteAI.git
+cd ConteAI
 ```
 
-**2. Inicie os Containers**
-Certifique-se de que o **Docker Desktop** está em execução na sua máquina.
+### 2. Configure a chave da OpenAI
 
-**3. Rode a Aplicação**
-Execute o comando abaixo na raiz do projeto (a imagem do MySQL será baixada e instanciada automaticamente):
+Configure a sua Chave da OpenAI No arquivo src/main/resources/application.properties, insira sua chave (ou configure via variável de ambiente na sua IDE):
+
+spring.ai.openai.api-key=SUA_CHAVE_AQUI
+
+### 3. Inicie o backend
+
+Certifique-se de que o Docker Desktop esteja aberto. O Spring Boot utilizará o `compose.yml` para iniciar o container do MySQL automaticamente.
+
+No Windows:
+
+```powershell
+.\gradlew.bat bootRun
+```
+
+No Linux ou macOS:
 
 ```bash
 ./gradlew bootRun
 ```
 
-**4. Acesse o Painel**
-A interface completa e os endpoints estarão disponíveis em:  
-👉 **http://localhost:8080**
+A API ficará disponível em:
+
+http://localhost:8080
+
+### 4. Inicie o frontend
+
+Abra outro terminal na raiz do projeto e execute:
+
+```bash
+cd frontend
+npm ci
+npm start -- --open --proxy-config proxy.conf.json
+```
+
+A interface Angular será aberta em:
+
+http://localhost:4200
+
+O frontend utiliza o proxy de desenvolvimento para encaminhar as requisições da interface para a API executada na porta `8080`.
