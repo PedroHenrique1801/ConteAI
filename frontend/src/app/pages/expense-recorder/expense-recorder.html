@@ -1,0 +1,50 @@
+<main class="recorder-page">
+  <section class="app-shell">
+    <header class="page-header">
+      <a class="back-button" routerLink="/" aria-label="Voltar para a página inicial">
+        <span aria-hidden="true">←</span>
+        Voltar
+      </a>
+
+      <h1>Registrar despesa</h1>
+
+    </header>
+
+    <section class="recorder-content">
+      <header class="recorder-introduction">
+        <h2>Registre seu gasto por voz</h2>
+        <p>Fale o valor, onde gastou e, se quiser, o item.</p>
+      </header>
+
+      <section class="recorder-card" aria-live="polite">
+        <button class="record-button" [class.record-button--recording]="state() === 'recording'"
+          [class.record-button--processing]="
+    state() === 'processing' || state() === 'requesting'
+  " [class.record-button--error]="state() === 'error'" type="button" [disabled]="
+    state() === 'processing' || state() === 'requesting'
+  " [attr.aria-label]="recordButtonLabel" (click)="handleRecordAction()">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="2" width="6" height="12" rx="3"></rect>
+            <path d="M5 10a7 7 0 0 0 14 0"></path>
+            <path d="M12 17v5"></path>
+            <path d="M8 22h8"></path>
+          </svg>
+        </button>
+
+        <strong class="recorder-card__status">
+          {{ statusTitle }}
+        </strong>
+
+        <p class="recorder-card__description" [class.recorder-card__description--error]="
+    state() === 'error'
+  ">
+          {{ statusDescription }}
+        </p>
+      </section>
+    </section>
+
+    <footer class="recorder-footer" aria-hidden="true">
+      <img class="brand-symbol" src="/assets/conteai-symbol.svg" alt="" aria-hidden="true">
+    </footer>
+  </section>
+</main>

@@ -1,0 +1,16 @@
+:host {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand__image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 4px 3px rgb(0 0 0 / 20%));
+}

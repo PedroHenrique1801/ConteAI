@@ -1,0 +1,123 @@
+<main class="home-page">
+  <section class="app-shell">
+    <div class="home-content">
+      <app-brand></app-brand>
+
+      <section class="welcome">
+        <h1>Olá, Pedro</h1>
+
+        <p>
+          Registre gastos por voz e acompanhe suas finanças
+          com ajuda da IA.
+        </p>
+      </section>
+
+      <section class="summary-card">
+        <span class="summary-card__label">
+          Gasto no mês
+        </span>
+
+        <strong class="summary-card__value">
+          {{ formatCurrency(monthlyTotal()) }}
+        </strong>
+
+        <span class="summary-card__remaining">
+          Orçamento restante:
+          {{ formatCurrency(remainingBudget) }}
+        </span>
+      </section>
+
+      <section class="actions" aria-label="Ações principais">
+        <button class="button button--primary" type="button" routerLink="/registrar-despesa">
+          <svg class="button__icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="2" width="6" height="12" rx="3"></rect>
+
+            <path d="M5 10a7 7 0 0 0 14 0"></path>
+            <path d="M12 17v5"></path>
+            <path d="M8 22h8"></path>
+          </svg>
+
+          Registrar nova despesa
+        </button>
+
+        <button class="button button--secondary" type="button" routerLink="/assistente">
+          Consultar meu assistente
+        </button>
+      </section>
+
+      <section class="expenses">
+        <header class="expenses__header">
+          <h2>Gastos já registrados</h2>
+
+          <button type="button" routerLink="/historico">
+            Ver histórico
+          </button>
+        </header>
+
+        <div class="expense-list">
+          @if (loading()) {
+          <article class="expense-item">
+            <div>
+              <strong>Carregando gastos...</strong>
+            </div>
+          </article>
+          } @else if (loadError()) {
+          <article class="expense-item">
+            <div>
+              <strong>{{ loadError() }}</strong>
+            </div>
+          </article>
+          } @else {
+          @for (
+          expense of transactions();
+          track expense.id
+          ) {
+          <article class="expense-item">
+            <div>
+              <strong>
+                {{ expense.description }}
+              </strong>
+
+              <span>
+                {{ categoryLabel(expense.category) }}
+                •
+                {{ formatDate(expense.createdAt) }}
+              </span>
+            </div>
+
+            <strong>
+              {{ formatCurrency(expense.amount) }}
+            </strong>
+          </article>
+          } @empty {
+          <article class="expense-item">
+            <div>
+              <strong>
+                Nenhuma despesa registrada
+              </strong>
+            </div>
+          </article>
+          }
+          }
+        </div>
+      </section>
+    </div>
+
+    <nav class="bottom-navigation" aria-label="Navegação principal">
+      <button class="
+          bottom-navigation__item
+          bottom-navigation__item--active
+        " type="button" routerLink="/">
+        Início
+      </button>
+
+      <button class="bottom-navigation__item" type="button" routerLink="/assistente">
+        Assistente
+      </button>
+
+      <button class="bottom-navigation__item" type="button" routerLink="/analises">
+        Análises
+      </button>
+    </nav>
+  </section>
+</main>

@@ -1,0 +1,120 @@
+<main class="analysis-page">
+  <section class="app-shell">
+    <div class="analysis-content">
+      <app-brand></app-brand>
+
+      <h1>Análise de Gastos</h1>
+
+      <section class="category-analysis">
+        <header class="category-analysis__header">
+          <h2>Gastos por categoria</h2>
+          <span>Este mês</span>
+        </header>
+
+        <div class="category-analysis__divider"></div>
+
+        @if (loading()) {
+          <section class="legend">
+            Carregando análise...
+          </section>
+        } @else if (loadError()) {
+          <section class="legend">
+            {{ loadError() }}
+          </section>
+        } @else {
+          <figure
+            class="chart"
+            aria-label="Distribuição dos gastos por categoria"
+          >
+            <svg viewBox="0 0 220 220" role="img">
+
+              @for (
+                category of categories();
+                track category.category
+              ) {
+                @if (category.amount > 0) {
+                  <circle
+                    class="chart__segment"
+                    cx="110"
+                    cy="110"
+                    r="94"
+                    pathLength="100"
+                    [attr.stroke]="category.color"
+                    [attr.stroke-dasharray]="
+                      category.dashLength +
+                      ' ' +
+                      (100 - category.dashLength)
+                    "
+                    [attr.stroke-dashoffset]="category.dashOffset"
+                  ></circle>
+                }
+              }
+            </svg>
+
+            <figcaption class="chart__total">
+              <span>Total gasto</span>
+
+              <strong>
+                {{ formatCurrency(totalSpent()) }}
+              </strong>
+            </figcaption>
+          </figure>
+
+          <section
+            class="legend"
+            aria-label="Valores por categoria"
+          >
+            @for (
+              category of categories();
+              track category.category
+            ) {
+              <article class="legend__item">
+                <span
+                  class="legend__color"
+                  [style.background-color]="category.color"
+                  aria-hidden="true"
+                ></span>
+
+                <span class="legend__name">
+                  {{ category.name }} · {{ category.percentage }}%
+                </span>
+
+                <strong>
+                  {{ formatCurrency(category.amount) }}
+                </strong>
+              </article>
+            }
+          </section>
+        }
+      </section>
+    </div>
+
+    <nav
+      class="bottom-navigation"
+      aria-label="Navegação principal"
+    >
+      <button
+        class="bottom-navigation__item"
+        type="button"
+        routerLink="/"
+      >
+        Início
+      </button>
+
+      <button
+        class="bottom-navigation__item"
+        type="button"
+        routerLink="/assistente"
+      >
+        Assistente
+      </button>
+
+      <button
+        class="bottom-navigation__item bottom-navigation__item--active"
+        type="button"
+      >
+        Análises
+      </button>
+    </nav>
+  </section>
+</main>
